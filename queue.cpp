@@ -1,157 +1,70 @@
-/*
-===========================================================
-Program : Queue Implementation using Class and Object
-Operations:
-1. Enqueue
-2. Dequeue
-3. Display
-4. Peek
-5. Exit
-===========================================================
-*/
-
 #include <iostream>
 using namespace std;
 
-//--------------------------------------------------
-// Step 1: Define Queue Class
-//--------------------------------------------------
-class Queue
-{
-private:
-    int queue[5];      // Array to store queue elements
-    int front;         // Points to the first element
-    int rear;          // Points to the last element
-    int size;          // Maximum size of queue
+class Queue {
+    int queue[10];
+    int front, rear;
 
 public:
-
-    //--------------------------------------------------
-    // Constructor: Initialize Queue
-    //--------------------------------------------------
-    Queue()
-    {
-        size = 5;
+    Queue() {
         front = -1;
         rear = -1;
     }
 
-    //--------------------------------------------------
-    // Function to Insert an Element
-    //--------------------------------------------------
-    void enqueue(int value)
-    {
-        // Check whether queue is full
-        if(rear == size - 1)
-        {
-            cout << "\nQueue Overflow! Queue is Full.\n";
-            return;
-        }
-
-        // Insert first element
-        if(front == -1)
-        {
-            front = 0;
-        }
-
-        rear++;
-        queue[rear] = value;
-
-        cout << "\nElement Inserted Successfully.\n";
-    }
-
-    //--------------------------------------------------
-    // Function to Delete an Element
-    //--------------------------------------------------
-    void dequeue()
-    {
-        // Check whether queue is empty
-        if(front == -1 || front > rear)
-        {
-            cout << "\nQueue Underflow! Queue is Empty.\n";
-
-            // Reset queue
-            front = rear = -1;
-            return;
-        }
-
-        cout << "\nDeleted Element : " << queue[front];
-
-        front++;
-
-        // Reset queue when all elements are deleted
-        if(front > rear)
-        {
-            front = rear = -1;
+    void enqueue(int value) {
+        if (rear == 9) {
+            cout << "Queue Overflow" << endl;
+        } else {
+            if (front == -1)
+                front = 0;
+            rear++;
+            queue[rear] = value;
         }
     }
 
-    //--------------------------------------------------
-    // Function to Display Queue
-    //--------------------------------------------------
-    void display()
-    {
-        // Check whether queue is empty
-        if(front == -1)
-        {
-            cout << "\nQueue is Empty.\n";
-            return;
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            cout << "Queue Underflow" << endl;
+        } else {
+            cout << "Deleted element: " << queue[front] << endl;
+            front++;
         }
-
-        cout << "\nQueue Elements : ";
-
-        for(int i = front; i <= rear; i++)
-        {
-            cout << queue[i] << " ";
-        }
-
-        cout << endl;
     }
 
-    //--------------------------------------------------
-    // Function to View Front Element
-    //--------------------------------------------------
-    void peek()
-    {
-        if(front == -1)
-        {
-            cout << "\nQueue is Empty.\n";
-            return;
+    void peek() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is Empty" << endl;
+        } else {
+            cout << "Front element: " << queue[front] << endl;
         }
+    }
 
-        cout << "\nFront Element : " << queue[front] << endl;
+    void display() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is Empty" << endl;
+        } else {
+            cout << "Queue Elements: ";
+            for (int i = front; i <= rear; i++) {
+                cout << queue[i] << " ";
+            }
+            cout << endl;
+        }
     }
 };
 
-//--------------------------------------------------
-// Main Function
-//--------------------------------------------------
-int main()
-{
+int main() {
     Queue q;
-
     int choice, value;
 
-    do
-    {
-        cout << "\n=================================";
-        cout << "\n         QUEUE MENU";
-        cout << "\n=================================";
-        cout << "\n1. Enqueue";
-        cout << "\n2. Dequeue";
-        cout << "\n3. Display";
-        cout << "\n4. Peek";
-        cout << "\n5. Exit";
-
-        cout << "\nEnter Your Choice : ";
+    do {
+        cout << "\n1. Enqueue\n2. Dequeue\n3. Peek\n4. Display\n5. Exit\n";
+        cout << "Enter your choice: ";
         cin >> choice;
 
-        switch(choice)
-        {
+        switch (choice) {
             case 1:
-                cout << "\nEnter Element : ";
+                cout << "Enter value: ";
                 cin >> value;
-
                 q.enqueue(value);
                 break;
 
@@ -160,22 +73,22 @@ int main()
                 break;
 
             case 3:
-                q.display();
-                break;
-
-            case 4:
                 q.peek();
                 break;
 
+            case 4:
+                q.display();
+                break;
+
             case 5:
-                cout << "\nProgram Terminated Successfully.\n";
+                cout << "Program Ended";
                 break;
 
             default:
-                cout << "\nInvalid Choice!\n";
+                cout << "Invalid Choice";
         }
 
-    } while(choice != 5);
+    } while (choice != 5);
 
     return 0;
 }
